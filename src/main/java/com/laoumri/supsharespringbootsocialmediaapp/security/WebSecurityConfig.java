@@ -44,7 +44,8 @@ public class WebSecurityConfig {
                 .authenticationProvider(this.authenticationProvider())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(
-                                "/api/v1/auth/**"
+                                "/api/v1/auth/**",
+                                "/api/v1/test/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
