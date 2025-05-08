@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.laoumri</groupId>
     <artifactId>supshare-spring-boot-social-media-app</artifactId>
-    <version>1.0.0-BETA</version>
+    <version>0.0.1</version>
     <name>supshare-spring-boot-social-media-app</name>
     <description>supshare-spring-boot-social-media-app</description>
     <url/>
@@ -29,6 +29,7 @@
     <properties>
         <java.version>21</java.version>
         <lombok.version>1.18.38</lombok.version>
+        <mockito.version>5.2.0</mockito.version>
     </properties>
     <dependencies>
         <dependency>
@@ -83,6 +84,15 @@
         </dependency>
         <!--JSON WEB TOKEN DEPENDENCIES-->
 
+        <!--WARN-FIX : MOCKITO-INLINE DEPENDENCY-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.17.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!--WARN-FIX : MOCKITO-INLINE DEPENDENCY-->
+
     </dependencies>
 
     <build>
@@ -112,6 +122,16 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>
+                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/5.17.0/mockito-core-5.17.0.jar
+                    </argLine>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

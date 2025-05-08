@@ -1,0 +1,36 @@
+name: Deploy SupShare in Test Environment
+
+on:
+  push:
+    branches:
+      - feature/**
+      - dev/v1.0.0
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.TEST_DEPLOY_KEY }}
+
+      - name: Add server to known hosts
+        run: |
+          ssh-keyscan -H 5.75.244.235 > ~/.ssh/known_hosts
+
+      - name: Build JAR
+        run: mvn clean package
+
+      - name: Deploy JAR to Server
+        run: ./deploy.sh
