@@ -39,4 +39,6 @@ jobs:
         run: mvn clean package
 
       - name: Deploy JAR to Server
-        run: ./deploy.sh
+        run: |
+          chmod +x ./deploy.sh
+          ./deploy.sh
