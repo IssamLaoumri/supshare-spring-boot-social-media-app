@@ -30,7 +30,13 @@ jobs:
           ssh-keyscan -H 5.75.244.235 > ~/.ssh/known_hosts
 
       - name: Build JAR
-        run: ../../package.sh
+        run: |
+          JWT_SECRET=${{ JWT_SECRET }}
+          ACTIVE_PROFILE=${{ ACTIVE_PROFILE }}
+          PROD_DB_PASSWORD=${{ PROD_DB_PASSWORD }}
+          PROD_DB_URI=${{ PROD_DB_URI }}
+          PROD_DB_USERNAME=${{ PROD_DB_USERNAME }}
+          mvn clean package
 
       - name: Deploy JAR to Server
-        run: ../../deploy.sh
+        run: ./deploy.sh
