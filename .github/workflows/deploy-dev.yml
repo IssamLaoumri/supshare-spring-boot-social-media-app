@@ -30,7 +30,7 @@ jobs:
           ssh-keyscan -H 5.75.244.235 > ~/.ssh/known_hosts
 
       - name: Build JAR
-        run: mvn clean package
+        run: ./package.sh
 
       - name: Deploy JAR to Server
-        run: ./package.sh
+        run: ./deploy.sh
