@@ -31,11 +31,11 @@ jobs:
 
       - name: Build JAR
         run: |
-          JWT_SECRET=${{ PROD_DB_URI.JWT_SECRET }}
-          ACTIVE_PROFILE=${{ PROD_DB_URI.ACTIVE_PROFILE }}
-          PROD_DB_PASSWORD=${{ PROD_DB_URI.PROD_DB_PASSWORD }}
-          PROD_DB_URI=${{ PROD_DB_URI.PROD_DB_URI }}
-          PROD_DB_USERNAME=${{ PROD_DB_URI.PROD_DB_USERNAME }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          ACTIVE_PROFILE=${{ secrets.ACTIVE_PROFILE }}
+          PROD_DB_PASSWORD=${{ secrets.PROD_DB_PASSWORD }}
+          PROD_DB_URI=${{ secrets.PROD_DB_URI }}
+          PROD_DB_USERNAME=${{ secrets.PROD_DB_USERNAME }}
           mvn clean package
 
       - name: Deploy JAR to Server
