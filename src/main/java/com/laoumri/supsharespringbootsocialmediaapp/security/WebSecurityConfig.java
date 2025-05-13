@@ -78,13 +78,13 @@ public class WebSecurityConfig {
 
     private CorsConfigurationSource corsConfiguration() {
         return request -> {
-            CorsConfiguration corsConfiguration = new CorsConfiguration();
-            corsConfiguration.setAllowCredentials(true);
-            corsConfiguration.setMaxAge(3600L);
-            corsConfiguration.setAllowedOrigins(Arrays.asList(frontendUrls.split(",")));
-            corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
-            corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
-            return corsConfiguration;
+            CorsConfiguration config = new CorsConfiguration();
+            config.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+            config.setAllowedMethods(Collections.singletonList("*"));
+            config.setAllowCredentials(true);
+            config.setMaxAge(3600L);
+            config.setAllowedHeaders(Collections.singletonList("*"));
+            return config;
         };
     }
 }
