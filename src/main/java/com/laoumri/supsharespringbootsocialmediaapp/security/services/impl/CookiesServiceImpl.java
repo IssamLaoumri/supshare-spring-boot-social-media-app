@@ -27,7 +27,7 @@ public class CookiesServiceImpl implements CookiesService {
                 .path("/api")
                 .maxAge((long)24*60*60)
                 .httpOnly(true)
-                .secure(false)
+                .secure(true)
                 .sameSite("none")
                 .build();
     }
