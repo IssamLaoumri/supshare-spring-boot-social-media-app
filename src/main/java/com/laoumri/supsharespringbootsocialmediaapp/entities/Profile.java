@@ -9,6 +9,7 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -29,4 +30,5 @@ public class Profile {
     private EGender gender;
     private String profilePhotoUrl;
     private String profileCoverUrl;
+    private List<Post> posts;
 }

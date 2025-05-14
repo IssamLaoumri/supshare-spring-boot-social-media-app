@@ -3,7 +3,6 @@ name: Deploy SupShare in Test Environment
 on:
   push:
     branches:
-      - feature/**
       - dev/v1.0.0
 
 jobs:
