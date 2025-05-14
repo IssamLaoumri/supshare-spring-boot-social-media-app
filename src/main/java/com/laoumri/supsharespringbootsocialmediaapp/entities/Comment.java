@@ -1,12 +1,15 @@
 package com.laoumri.supsharespringbootsocialmediaapp.entities;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 @Node
@@ -14,13 +17,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Builder
-public class Post {
+public class Comment {
     @Id
     @GeneratedValue
-    private UUID post_id;
+    private UUID comment_id;
     private String content;
-    private List<String> media;
+    private Profile author;
     private Instant created_at;
-    private Profile profile;
-    private List<Comment> comments;
+    private Instant updated_at;
+    private boolean updated;
+    private String media;
 }

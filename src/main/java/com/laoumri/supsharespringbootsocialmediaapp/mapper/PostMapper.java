@@ -21,7 +21,7 @@ public class PostMapper {
 
     public Post PostRequestToPost(PostRequest postRequest) {
         return Post.builder()
-                .media(List.of(postRequest.getMedia()))
+                .media(postRequest.getMedia())
                 .content(postRequest.getContent())
                 .build();
     }

@@ -6,19 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Builder
-public class PostResponse {
-    private UUID post_id;
-    private String content;
-    private List<String> media;
-    private String name;
+public class CommentResponse {
+    private UUID comment_id;
+    private String comment;
+    private String media;
+    private String author;
     private Instant created_at;
+    private Instant updated_at;
+    private boolean updated;
 }

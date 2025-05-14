@@ -11,6 +11,7 @@ import com.laoumri.supsharespringbootsocialmediaapp.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -49,7 +50,7 @@ public class PostServiceImpl implements PostService {
     public PostResponse createPost(PostRequest postRequest, UUID userId) {
         var user = userRepository.findById(userId).orElseThrow(()->new RuntimeException("User not found"));
         var prf = profileRepository.findByUsername(user.getUsername()).orElseThrow(()->new RuntimeException("Profile not found"));
-        Post post = Post.builder().content(postRequest.getContent()).profile(prf).media(postRequest.getMedia()).build();
+        Post post = Post.builder().content(postRequest.getContent()).profile(prf).created_at(Instant.now()).media(postRequest.getMedia()).build();
         return postMapper.PostToPostResponse(postRepository.save(post));
     }
 
