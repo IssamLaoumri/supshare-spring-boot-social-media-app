@@ -18,3 +18,35 @@ ssh $REMOTE_SERVER << EOF
 EOF
 
 echo "✅ Deployment completed!"
+
+
+################################################################################
+#!/bin/bash
+
+APP_NAME=supshare
+IMAGE_NAME=$APP_NAME:latest
+CONTAINER_NAME=$APP_NAME-container
+
+# Optional: Copy only necessary files if building remotely
+scp Dockerfile target/*.jar admin@5.75.244.235:/home/admin/$APP_NAME/
+
+ssh admin@5.75.244.235 << EOF
+  cd $APP_NAME
+  docker stop $CONTAINER_NAME || true
+  docker rm $CONTAINER_NAME || true
+  docker rmi $IMAGE_NAME || true
+
+  # Build Docker image
+  docker build -t $IMAGE_NAME .
+
+  # Run container with environment variables
+  docker run -d \
+    --name $CONTAINER_NAME \
+    -e JWT_SECRET=${JWT_SECRET} \
+    -e SPRING_PROFILES_ACTIVE=${ACTIVE_PROFILE} \
+    -e PROD_DB_PASSWORD=${PROD_DB_PASSWORD} \
+    -e PROD_DB_URI=${PROD_DB_URI} \
+    -e PROD_DB_USERNAME=${PROD_DB_USERNAME} \
+    -p 8080:8080 \
+    $IMAGE_NAME
+EOF

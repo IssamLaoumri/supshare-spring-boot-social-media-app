@@ -1,13 +1,12 @@
-name: Deploy SupShare in Test Environment
+name: Build & Deploy SupShare To Test
 
 on:
   push:
     branches:
-      - feature/**
       - dev/v1.0.0
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,25 +19,22 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Setup SSH
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/supshare:latest .
+
+      - name: Push image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/supshare:latest
+
+      - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.TEST_DEPLOY_KEY }}
 
-      - name: Add server to known hosts
-        run: |
-          ssh-keyscan -H 5.75.244.235 > ~/.ssh/known_hosts
+      - name: Add VPS to known hosts
+        run: ssh-keyscan -H 65.109.13.102 >> ~/.ssh/known_hosts
 
-      - name: Build JAR
-        env:
-          JWT_SECRET: ${{ vars.JWT_SECRET }}
-          ACTIVE_PROFILE: ${{ vars.ACTIVE_PROFILE }}
-          PROD_DB_PASSWORD: ${{ vars.PROD_DB_PASSWORD }}
-          PROD_DB_URI: ${{ vars.PROD_DB_URI }}
-          PROD_DB_USERNAME: ${{ vars.PROD_DB_USERNAME }}
-        run: mvn clean package
-
-      - name: Deploy JAR to Server
-        run: |
-          chmod +x ./deploy.sh
-          ./deploy.sh
+      - name: Deploy to VPS
+        run: ssh admin@65.109.13.102 "cd supshare && docker-compose pull && docker-compose up -d"
