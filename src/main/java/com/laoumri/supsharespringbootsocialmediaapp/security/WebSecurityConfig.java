@@ -46,6 +46,7 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/api/v1/auth/**",
                                 "/api/v1/test/**"
+                                "/test"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
