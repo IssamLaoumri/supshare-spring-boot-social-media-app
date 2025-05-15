@@ -26,6 +26,8 @@ public class PostServiceImpl implements PostService {
     private final ReactionRepository reactionRepository;
     private final CommentRepository commentRepository;
 
+    //Counters are not included on the NODE
+
     @Override
     public List<PostResponse> getPosts() {
         List<Post> posts = postRepository.findAll();

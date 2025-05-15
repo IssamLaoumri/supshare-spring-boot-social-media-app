@@ -28,6 +28,8 @@ public class CommentMapper {
                 .created_at(comment.getCreated_at())
                 .updated_at(comment.getUpdated_at())
                 .updated(comment.isUpdated())
+                .dislikes_count(0)
+                .likes_count(0)
                 .build();
     }
 

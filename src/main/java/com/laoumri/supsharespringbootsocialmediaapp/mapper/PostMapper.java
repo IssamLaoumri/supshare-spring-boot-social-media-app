@@ -16,6 +16,9 @@ public class PostMapper {
                 .content(post.getContent())
                 .media(post.getMedia())
                 .created_at(post.getCreated_at())
+                .likes_count(0)
+                .dislikes_count(0)
+                .comments_count(0)
                 .build();
     }
 

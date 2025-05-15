@@ -6,11 +6,9 @@ import com.laoumri.supsharespringbootsocialmediaapp.entities.Comment;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.Post;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.Profile;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.User;
+import com.laoumri.supsharespringbootsocialmediaapp.enums.EReaction;
 import com.laoumri.supsharespringbootsocialmediaapp.mapper.CommentMapper;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.CommentRepository;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.PostRepository;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.ProfileRepository;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.UserRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.*;
 import com.laoumri.supsharespringbootsocialmediaapp.services.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +27,9 @@ public class CommentServiceImpl implements CommentService {
     private final CommentMapper commentMapper;
     private final ProfileRepository profileRepository;
     private final UserRepository userRepository;
+    private final ReactionRepository reactionRepository;
+
+    // Likes Counter is not Included on the NODE
 
     @Override
     public List<CommentResponse> getComments(UUID postId) {
@@ -36,13 +37,30 @@ public class CommentServiceImpl implements CommentService {
             throw new RuntimeException("Post does not exist");
         }
         List<Comment> comments = commentRepository.findAllByPost(postRepository.findById(postId).get());
-        List<CommentResponse> responses = comments.stream().map(com->commentMapper.mapComment(com)).collect(Collectors.toList());
+        List<CommentResponse> responses = comments.stream().map(com->CommentResponse.builder()
+                .comment(com.getContent())
+                .comment_id(com.getComment_id()).media(com.getMedia()).created_at(com.getCreated_at()).updated_at(com.getCreated_at())
+                .updated(false).dislikes_count(reactionRepository.findByComment(com).stream().filter(c->c.getReactionType()==EReaction.DISLIKE).count())
+                .likes_count(reactionRepository.findByComment(com).stream().filter(c->c.getReactionType()==EReaction.LIKE).count())
+                        .author(com.getAuthor().getFirstname()+" "+com.getAuthor().getLastname())
+                .build())
+                .collect(Collectors.toList());
         return responses;
     }
 
     @Override
     public CommentResponse getComment(UUID commentId) {
-        return commentMapper.mapComment(commentRepository.findById(commentId).get());
+        Comment com = commentRepository.findById(commentId).orElseThrow(()-> new RuntimeException("Comment does not exist"));
+        return CommentResponse.builder().comment_id(commentId)
+                .author(com.getAuthor().getFirstname()+" "+com.getAuthor().getLastname())
+                .created_at(com.getCreated_at())
+                .updated_at(com.getUpdated_at())
+                .comment(com.getContent())
+                .media(com.getMedia())
+                .updated(com.isUpdated())
+                .likes_count(reactionRepository.findByComment(com).stream().filter(c->c.getReactionType()==EReaction.LIKE).count())
+                .dislikes_count(reactionRepository.findByComment(com).stream().filter(c->c.getReactionType()==EReaction.DISLIKE).count())
+                .build();
     }
 
     @Override
@@ -69,13 +87,22 @@ public class CommentServiceImpl implements CommentService {
         if(!postRepository.existsById(post_id)){
             throw new RuntimeException("Post does not exist");
         }
-        Comment comment = commentRepository.findById(comment_id).get();
-        comment.setUpdated(true);
-        comment.setMedia(commentRequest.getMedia());
-        comment.setContent(commentRequest.getComment());
-        comment.setUpdated_at(Instant.now());
-        commentRepository.save(comment);
-        return commentMapper.mapComment(comment);
+        Comment com = commentRepository.findById(comment_id).get();
+        com.setUpdated(true);
+        com.setMedia(commentRequest.getMedia());
+        com.setContent(commentRequest.getComment());
+        com.setUpdated_at(Instant.now());
+        commentRepository.save(com);
+        return CommentResponse.builder().comment_id(com.getComment_id())
+                .author(com.getAuthor().getFirstname()+" "+com.getAuthor().getLastname())
+                .created_at(com.getCreated_at())
+                .updated_at(com.getUpdated_at())
+                .comment(com.getContent())
+                .media(com.getMedia())
+                .updated(com.isUpdated())
+                .likes_count(reactionRepository.findByComment(com).stream().filter(c->c.getReactionType()==EReaction.LIKE).count())
+                .dislikes_count(reactionRepository.findByComment(com).stream().filter(c->c.getReactionType()==EReaction.DISLIKE).count())
+                .build();
     }
 
     @Override
