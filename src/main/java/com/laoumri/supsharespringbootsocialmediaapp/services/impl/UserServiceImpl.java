@@ -1,6 +1,6 @@
 package com.laoumri.supsharespringbootsocialmediaapp.services.impl;
 
-import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.RegisterRequest;
+import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login.RegisterRequest;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.Profile;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.Role;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.User;

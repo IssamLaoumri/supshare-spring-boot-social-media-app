@@ -1,4 +1,4 @@
-package com.laoumri.supsharespringbootsocialmediaapp.dto.requests;
+package com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

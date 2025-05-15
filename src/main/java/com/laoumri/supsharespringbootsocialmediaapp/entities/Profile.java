@@ -19,7 +19,7 @@ import java.util.UUID;
 @Node
 public class Profile {
     @Id @GeneratedValue
-    private UUID profile;
+    private UUID id;
     private String firstname;
     private String lastname;
     private String username;

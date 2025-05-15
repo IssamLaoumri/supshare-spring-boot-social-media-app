@@ -1,4 +1,4 @@
-package com.laoumri.supsharespringbootsocialmediaapp.dto.requests;
+package com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login;
 
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;

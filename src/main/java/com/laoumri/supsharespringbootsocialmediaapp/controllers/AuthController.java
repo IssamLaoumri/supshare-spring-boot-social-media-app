@@ -1,8 +1,8 @@
 package com.laoumri.supsharespringbootsocialmediaapp.controllers;
 
 import com.laoumri.supsharespringbootsocialmediaapp.commons.constants.APIConstants;
-import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.LoginRequest;
-import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.RegisterRequest;
+import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login.LoginRequest;
+import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login.RegisterRequest;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.responses.AuthResponse;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.responses.MessageResponse;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.RefreshToken;
