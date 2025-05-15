@@ -21,4 +21,7 @@ public class PostResponse {
     private List<String> media;
     private String name;
     private Instant created_at;
+    private long comments_count;
+    private long likes_count;
+    private long dislikes_count;
 }

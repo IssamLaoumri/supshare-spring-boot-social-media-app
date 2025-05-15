@@ -22,5 +22,4 @@ public class Post {
     private List<String> media;
     private Instant created_at;
     private Profile profile;
-    private List<Comment> comments;
 }

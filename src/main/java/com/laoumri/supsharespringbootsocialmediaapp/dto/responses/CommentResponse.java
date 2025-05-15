@@ -21,4 +21,6 @@ public class CommentResponse {
     private Instant created_at;
     private Instant updated_at;
     private boolean updated;
+    private int likes_count;
+    private int dislikes_count;
 }

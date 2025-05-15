@@ -3,10 +3,9 @@ package com.laoumri.supsharespringbootsocialmediaapp.services.impl;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.PostRequest;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.responses.PostResponse;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.Post;
+import com.laoumri.supsharespringbootsocialmediaapp.enums.EReaction;
 import com.laoumri.supsharespringbootsocialmediaapp.mapper.PostMapper;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.PostRepository;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.ProfileRepository;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.UserRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.*;
 import com.laoumri.supsharespringbootsocialmediaapp.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +23,8 @@ public class PostServiceImpl implements PostService {
     private final ProfileRepository profileRepository;
     private final UserRepository userRepository;
     private final PostMapper postMapper;
+    private final ReactionRepository reactionRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public List<PostResponse> getPosts() {
@@ -34,7 +35,10 @@ public class PostServiceImpl implements PostService {
                         post.getContent(),
                         post.getMedia(),
                         post.getProfile().getFirstname()+" "+post.getProfile().getLastname(),
-                        post.getCreated_at()
+                        post.getCreated_at(),
+                        commentRepository.findAllByPost(post).stream().count(),
+                        reactionRepository.findByPost(post).stream().filter(r->r.getReactionType()== EReaction.LIKE).count(),
+                        reactionRepository.findByPost(post).stream().filter(r->r.getReactionType()==EReaction.DISLIKE).count()
                 ))
                 .collect(Collectors.toList());
         return postResponses;
@@ -43,7 +47,16 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponse getPost(UUID id) {
         var post = postRepository.findById(id).orElseThrow(()->new RuntimeException("Post not found"));
-        return postMapper.PostToPostResponse(post);
+        PostResponse postR = postMapper.PostToPostResponse(post);
+        postR.setComments_count(commentRepository.findAllByPost(post).stream().count());
+        postR.setLikes_count(reactionRepository.findByPost(post)
+                .stream()
+                .filter(r->r.getReactionType()== EReaction.LIKE)
+                .count());
+        postR.setDislikes_count(reactionRepository.findByPost(post).stream()
+                .filter(r->r.getReactionType()== EReaction.DISLIKE)
+                .count());
+        return postR;
     }
 
     @Override
@@ -59,7 +72,15 @@ public class PostServiceImpl implements PostService {
         var post = postRepository.findById(id).orElseThrow(()->new RuntimeException("Post not found"));
         post.setContent(postRequest.getContent());
         post.setMedia(postRequest.getMedia());
-        return postMapper.PostToPostResponse(postRepository.save(post));
+        PostResponse response = postMapper.PostToPostResponse(postRepository.save(post));
+        response.setComments_count(commentRepository.findAllByPost(post).stream().count());
+        response.setDislikes_count(reactionRepository.findByPost(post)
+                .stream()
+                .filter(r->r.getReactionType()== EReaction.DISLIKE).count());
+        response.setLikes_count(reactionRepository.findByPost(post)
+                .stream()
+                .filter(u->u.getReactionType()== EReaction.LIKE).count());
+        return response;
     }
 
     @Override

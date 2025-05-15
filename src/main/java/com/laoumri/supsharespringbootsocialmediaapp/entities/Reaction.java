@@ -1,5 +1,6 @@
 package com.laoumri.supsharespringbootsocialmediaapp.entities;
 
+import com.laoumri.supsharespringbootsocialmediaapp.enums.EReaction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,24 +10,22 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @Node
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
-public class Comment {
+public class Reaction {
     @Id
     @GeneratedValue
-    private UUID comment_id;
-    private String content;
-    private Profile author;
-    private Instant created_at;
-    private Instant updated_at;
-    private boolean updated;
-    private String media;
-    @Relationship(type = "MAPPED_BY", direction = Relationship.Direction.INCOMING)
+    private UUID reactionId;
+    private EReaction reactionType;
+    @Relationship(type = "MAPPED_BY", direction = Relationship.Direction.OUTGOING)
     private Post post;
+    @Relationship(type = "MAPPED_BY", direction = Relationship.Direction.OUTGOING)
+    private Comment comment;
+    @Relationship(type = "MAPPED_BY", direction = Relationship.Direction.OUTGOING)
+    private Profile profile;
 }
