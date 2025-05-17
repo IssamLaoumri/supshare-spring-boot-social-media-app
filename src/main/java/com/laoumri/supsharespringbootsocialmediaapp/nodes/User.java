@@ -36,18 +36,6 @@ public class User implements UserDetails {
     @Relationship(type = "has_profile", direction = Relationship.Direction.OUTGOING)
     private Profile profile;
 
-    @Relationship(type = "SENT_REQUEST", direction = Relationship.Direction.OUTGOING)
-    private List<FriendRequest> sentRequests;
-
-    @Relationship(type = "SENT_REQUEST", direction = Relationship.Direction.INCOMING)
-    private List<FriendRequest> receivedRequests;
-
-    @Relationship(type = "FRIEND", direction = Relationship.Direction.OUTGOING)
-    private List<User> friends;
-
-    @Relationship(type = "BLOCKED", direction = Relationship.Direction.OUTGOING)
-    private List<User> blockedUsers;
-
     private boolean accountNonExpired;      // Indicates whether the user's account has expired
     private boolean accountNonLocked;       // Indicates whether the user is locked or unlocked
     private boolean credentialsNonExpired;  // Indicates whether the user's password or credentials have expired
