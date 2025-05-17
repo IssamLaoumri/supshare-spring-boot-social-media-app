@@ -1,6 +1,6 @@
 package com.laoumri.supsharespringbootsocialmediaapp.security.utils;
 
-import com.laoumri.supsharespringbootsocialmediaapp.entities.Role;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.Role;
 import com.laoumri.supsharespringbootsocialmediaapp.repositories.RoleRepository;
 import com.laoumri.supsharespringbootsocialmediaapp.security.enums.ERole;
 import lombok.RequiredArgsConstructor;

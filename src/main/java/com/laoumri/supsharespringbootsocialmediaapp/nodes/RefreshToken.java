@@ -1,6 +1,5 @@
-package com.laoumri.supsharespringbootsocialmediaapp.entities;
+package com.laoumri.supsharespringbootsocialmediaapp.nodes;
 
-import com.laoumri.supsharespringbootsocialmediaapp.security.enums.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,8 +7,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Data
@@ -18,13 +18,12 @@ import java.util.UUID;
 @Builder
 
 @Node
-public class Role implements GrantedAuthority {
-    @Id @GeneratedValue
+public class RefreshToken {
+    @Id
+    @GeneratedValue
     private UUID id;
-    private ERole roleName;
-
-    @Override
-    public String getAuthority() {
-        return roleName.name();
-    }
+    @Relationship(type = "HAS_REFRESH_TOKEN", direction = Relationship.Direction.INCOMING)
+    private User user;
+    private String token;
+    private Instant expiresAt;
 }

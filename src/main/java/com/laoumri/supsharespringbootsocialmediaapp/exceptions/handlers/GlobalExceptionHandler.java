@@ -2,6 +2,7 @@ package com.laoumri.supsharespringbootsocialmediaapp.exceptions.handlers;
 
 import com.laoumri.supsharespringbootsocialmediaapp.dto.responses.ErrorResponse;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.BadRequestException;
+import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.InvalidOperationException;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.NotFoundException;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.UnauthorizedException;
 import org.springframework.http.HttpStatus;
@@ -34,5 +35,12 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     @ResponseBody
     public ResponseEntity<ErrorResponse> handleBadRequestException(final BadRequestException ex){
         return buildErrorResponse(HttpStatus.BAD_REQUEST, List.of(ex.getMessage()), ex.getCode());
+    }
+
+    @ExceptionHandler(InvalidOperationException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> handleInvalidOperationException(final InvalidOperationException ex){
+        return buildErrorResponse(HttpStatus.FORBIDDEN, List.of(ex.getMessage()), ex.getCode());
     }
 }

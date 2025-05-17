@@ -1,7 +1,7 @@
 package com.laoumri.supsharespringbootsocialmediaapp.security.services;
 
-import com.laoumri.supsharespringbootsocialmediaapp.entities.RefreshToken;
-import com.laoumri.supsharespringbootsocialmediaapp.entities.User;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.RefreshToken;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.User;
 
 import java.util.Optional;
 import java.util.UUID;

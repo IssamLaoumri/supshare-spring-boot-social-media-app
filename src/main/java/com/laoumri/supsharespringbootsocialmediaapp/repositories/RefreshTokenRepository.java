@@ -1,6 +1,6 @@
 package com.laoumri.supsharespringbootsocialmediaapp.repositories;
 
-import com.laoumri.supsharespringbootsocialmediaapp.entities.RefreshToken;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.RefreshToken;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.stereotype.Repository;

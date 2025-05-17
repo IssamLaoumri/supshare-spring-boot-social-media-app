@@ -93,6 +93,14 @@
         </dependency>
         <!--WARN-FIX : MOCKITO-INLINE DEPENDENCY-->
 
+        <!--ASPECT DEPENDENCIES-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>3.4.4</version>
+        </dependency>
+        <!--ASPECT DEPENDENCIES-->
+
     </dependencies>
 
     <build>

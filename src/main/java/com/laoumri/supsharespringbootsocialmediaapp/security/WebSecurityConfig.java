@@ -80,7 +80,7 @@ public class WebSecurityConfig {
     private CorsConfigurationSource corsConfiguration() {
         return request -> {
             CorsConfiguration config = new CorsConfiguration();
-            config.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+            config.setAllowedOrigins(Collections.singletonList("https://localhost:5173"));
             config.setAllowedMethods(Collections.singletonList("*"));
             config.setAllowCredentials(true);
             config.setMaxAge(3600L);

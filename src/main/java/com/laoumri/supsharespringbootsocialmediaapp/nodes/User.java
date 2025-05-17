@@ -1,4 +1,4 @@
-package com.laoumri.supsharespringbootsocialmediaapp.entities;
+package com.laoumri.supsharespringbootsocialmediaapp.nodes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,8 +32,21 @@ public class User implements UserDetails {
 
     @Relationship(type = "HAS_ROLE", direction = Relationship.Direction.OUTGOING)
     private Set<Role> roles;
+
     @Relationship(type = "has_profile", direction = Relationship.Direction.OUTGOING)
     private Profile profile;
+
+    @Relationship(type = "SENT_REQUEST", direction = Relationship.Direction.OUTGOING)
+    private List<FriendRequest> sentRequests;
+
+    @Relationship(type = "SENT_REQUEST", direction = Relationship.Direction.INCOMING)
+    private List<FriendRequest> receivedRequests;
+
+    @Relationship(type = "FRIEND", direction = Relationship.Direction.OUTGOING)
+    private List<User> friends;
+
+    @Relationship(type = "BLOCKED", direction = Relationship.Direction.OUTGOING)
+    private List<User> blockedUsers;
 
     private boolean accountNonExpired;      // Indicates whether the user's account has expired
     private boolean accountNonLocked;       // Indicates whether the user is locked or unlocked

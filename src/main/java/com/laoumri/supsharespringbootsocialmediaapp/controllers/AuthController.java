@@ -5,9 +5,9 @@ import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login.LoginRequ
 import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login.RegisterRequest;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.responses.AuthResponse;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.responses.MessageResponse;
-import com.laoumri.supsharespringbootsocialmediaapp.entities.RefreshToken;
-import com.laoumri.supsharespringbootsocialmediaapp.entities.Role;
-import com.laoumri.supsharespringbootsocialmediaapp.entities.User;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.RefreshToken;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.Role;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.User;
 import com.laoumri.supsharespringbootsocialmediaapp.enums.code.EAuthCode;
 import com.laoumri.supsharespringbootsocialmediaapp.enums.code.ETokenCode;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.BadRequestException;

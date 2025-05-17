@@ -1,6 +1,6 @@
 package com.laoumri.supsharespringbootsocialmediaapp.repositories;
 
-import com.laoumri.supsharespringbootsocialmediaapp.entities.Profile;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.Profile;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 

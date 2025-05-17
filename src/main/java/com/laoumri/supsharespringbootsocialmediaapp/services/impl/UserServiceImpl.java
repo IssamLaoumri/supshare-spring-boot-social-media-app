@@ -1,9 +1,9 @@
 package com.laoumri.supsharespringbootsocialmediaapp.services.impl;
 
 import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login.RegisterRequest;
-import com.laoumri.supsharespringbootsocialmediaapp.entities.Profile;
-import com.laoumri.supsharespringbootsocialmediaapp.entities.Role;
-import com.laoumri.supsharespringbootsocialmediaapp.entities.User;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.Profile;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.Role;
+import com.laoumri.supsharespringbootsocialmediaapp.nodes.User;
 import com.laoumri.supsharespringbootsocialmediaapp.enums.code.EUserCode;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.BadRequestException;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.NotFoundException;
