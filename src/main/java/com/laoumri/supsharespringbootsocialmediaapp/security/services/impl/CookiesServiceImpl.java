@@ -24,7 +24,7 @@ public class CookiesServiceImpl implements CookiesService {
     public ResponseCookie generateCookie(ECookie cookieName, String cookieValue) {
         return ResponseCookie
                 .from(cookieName.name(), cookieValue)
-                .path("/api")
+                .path("/")
                 .maxAge((long)24*60*60)
                 .httpOnly(true)
                 .secure(true)
