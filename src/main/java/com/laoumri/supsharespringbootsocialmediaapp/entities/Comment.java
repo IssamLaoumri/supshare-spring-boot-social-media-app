@@ -10,6 +10,7 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Node
@@ -27,6 +28,7 @@ public class Comment {
     private Instant updated_at;
     private boolean updated;
     private String media;
-    @Relationship(type = "MAPPED_BY", direction = Relationship.Direction.INCOMING)
+    private List<Reaction> reaction;
+    @Relationship(type = "HAS_COMMENT", direction = Relationship.Direction.INCOMING)
     private Post post;
 }

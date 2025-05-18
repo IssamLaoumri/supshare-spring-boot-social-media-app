@@ -31,7 +31,7 @@ public class CommentController {
 
     @PostMapping("/add/{post_id}")
     public ResponseEntity<CommentResponse> addComment(@PathVariable UUID post_id, @RequestBody CommentRequest commentRequest, @AuthenticationPrincipal User user) {
-        return new ResponseEntity<>(commentService.createComment(commentRequest,user.getId(),post_id), HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.createComment(commentRequest,user,post_id), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{post_id}/{comment_id}")
