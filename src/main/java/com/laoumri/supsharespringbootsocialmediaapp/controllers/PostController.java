@@ -39,7 +39,7 @@ public class PostController {
         if(user.getId() == null){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        var post = postService.createPost(postRequest,user.getId());
+        var post = postService.createPost(postRequest,user);
         if(post == null){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
