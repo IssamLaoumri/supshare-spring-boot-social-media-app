@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProfileServiceImpl implements ProfileService {
     private final ProfileRepository profileRepository;
+    private static final String defaultProfilePhotoUrl =
+            "https://res.cloudinary.com/dlzn1dgwj/image/upload/v1747765472/avatar-1_pqyo20.png";
 
     @Override
     public Profile save(RegisterRequest registerRequest) {
@@ -23,6 +25,7 @@ public class ProfileServiceImpl implements ProfileService {
                 .bMonth(registerRequest.getBMonth())
                 .bYear(registerRequest.getBYear())
                 .gender(EGender.valueOf(registerRequest.getGender()))
+                .profilePhotoUrl(defaultProfilePhotoUrl)
                 .build();
         return profileRepository.save(newProfile);
     }

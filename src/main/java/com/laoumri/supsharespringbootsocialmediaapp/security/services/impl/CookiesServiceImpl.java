@@ -24,7 +24,7 @@ public class CookiesServiceImpl implements CookiesService {
     public ResponseCookie generateCookie(ECookie cookieName, String cookieValue) {
         return ResponseCookie
                 .from(cookieName.name(), cookieValue)
-                .path("/")
+                .path("/api")
                 .maxAge((long)24*60*60)
                 .httpOnly(true)
                 .secure(true)
@@ -34,6 +34,6 @@ public class CookiesServiceImpl implements CookiesService {
 
     @Override
     public ResponseCookie clearCookie(ECookie cookieName) {
-        return ResponseCookie.from(cookieName.name(), "").path("/api").build();
+        return ResponseCookie.from(cookieName.name(), "").path("/api").maxAge(0).build();
     }
 }

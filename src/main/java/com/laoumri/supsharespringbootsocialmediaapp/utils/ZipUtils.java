@@ -15,4 +15,13 @@ public class ZipUtils {
         }
         return result;
     }
+
+    public static String generateCode(int length){
+        StringBuilder code = new StringBuilder();
+        String schema = "0123456789";
+        for(int i = 0; i < length; i++){
+            code.append(schema.charAt((int) (Math.random() * schema.length())));
+        }
+        return code.toString();
+    }
 }

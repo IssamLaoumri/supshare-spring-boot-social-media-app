@@ -25,10 +25,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.stream.Collectors;
@@ -69,22 +66,7 @@ public class AuthController {
         httpHeaders.add(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
 
         // Create new Authentication response
-        AuthResponse authResponse = AuthResponse.builder()
-                .id(user.getId())
-                .firstname(user.getProfile().getFirstname())
-                .lastname(user.getProfile().getLastname())
-                .username(user.getProfile().getUsername())
-                .email(user.getUsername())
-                .bDay(user.getProfile().getBDay())
-                .bMonth(user.getProfile().getBMonth())
-                .bYear(user.getProfile().getBYear())
-                .gender(user.getProfile().getGender().name())
-                .roles(user.getRoles()
-                        .stream()
-                        .map(Role::getAuthority)
-                        .collect(Collectors.toSet())
-                )
-                .build();
+        AuthResponse authResponse = BuildAuthResponse(user);
 
         // Create and return message OK
         MessageResponse res = new MessageResponse(EAuthCode.LOGIN_SUCCESS, Instant.now(), authResponse);
@@ -128,5 +110,31 @@ public class AuthController {
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
                 .body(new MessageResponse(EAuthCode.SIGNED_OUT_SUCCESS, Instant.now(), "You've been signed out!"));
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<MessageResponse> getCurrentUser(@AuthenticationPrincipal User user){
+        AuthResponse authResponse = BuildAuthResponse(user);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(EAuthCode.CURRENT_USER, Instant.now(), authResponse));
+    }
+
+    private AuthResponse BuildAuthResponse(User user) {
+        return AuthResponse.builder()
+                .id(user.getId())
+                .firstname(user.getProfile().getFirstname())
+                .lastname(user.getProfile().getLastname())
+                .username(user.getProfile().getUsername())
+                .email(user.getUsername())
+                .bDay(user.getProfile().getBDay())
+                .bMonth(user.getProfile().getBMonth())
+                .bYear(user.getProfile().getBYear())
+                .gender(user.getProfile().getGender().name())
+                .roles(user.getRoles()
+                        .stream()
+                        .map(Role::getAuthority)
+                        .collect(Collectors.toSet())
+                )
+                .build();
     }
 }

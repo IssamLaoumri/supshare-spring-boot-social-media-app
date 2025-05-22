@@ -36,6 +36,9 @@ public class User implements UserDetails {
     @Relationship(type = "has_profile", direction = Relationship.Direction.OUTGOING)
     private Profile profile;
 
+    @Relationship(type = "HAS_PASSWORD_HISTORY")
+    private List<PasswordHistory> passwordHistories;
+
     private boolean accountNonExpired;      // Indicates whether the user's account has expired
     private boolean accountNonLocked;       // Indicates whether the user is locked or unlocked
     private boolean credentialsNonExpired;  // Indicates whether the user's password or credentials have expired

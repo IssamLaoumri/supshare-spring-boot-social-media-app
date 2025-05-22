@@ -29,6 +29,15 @@ public class JwtTokenServiceImpl implements JwtTokenService {
                 .compact();
     }
 
+    public String generateJwtTokenFromUsername(String username, Long expiration) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + expiration))
+                .signWith(this.key(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
     @Override
     public String getEmailFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(this.key()).build().parseClaimsJws(token).getBody().getSubject();
