@@ -21,22 +21,22 @@ public class ReactionController {
     private final ReactionService reactionService;
 
     @PostMapping("/likePost/{post_id}")
-    public ReactionResponse LikePost(@PathVariable UUID post_id, ReactionRequest reactionRequest,@AuthenticationPrincipal User user) {
-        return reactionService.ReactWithPost(reactionRequest, post_id, user.getId(), EReaction.LIKE);
+    public ReactionResponse LikePost(@PathVariable UUID post_id,@AuthenticationPrincipal User user) {
+        return reactionService.ReactWithPost(post_id,user, EReaction.LIKE);
     }
 
     @PostMapping("/dislikePost/{post_id}")
     public ReactionResponse DislikePost(@PathVariable UUID post_id, ReactionRequest reactionRequest, @AuthenticationPrincipal User user) {
-        return reactionService.ReactWithPost(reactionRequest, post_id, user.getId(), EReaction.DISLIKE);
+        return reactionService.ReactWithPost(post_id, user, EReaction.DISLIKE);
     }
 
     @PostMapping("/likeComment/{comment_id}")
     public ReactionResponse LikeComment(@PathVariable UUID comment_id, ReactionRequest reactionRequest, @AuthenticationPrincipal User user) {
-        return reactionService.ReactWithComment(reactionRequest, comment_id, user.getId(), EReaction.LIKE);
+        return reactionService.ReactWithComment(comment_id, user, EReaction.LIKE);
     }
 
     @PostMapping("/dislikeComment/{comment_id}")
     public ReactionResponse DislikeComment(@PathVariable UUID comment_id, ReactionRequest reactionRequest, @AuthenticationPrincipal User user){
-        return reactionService.ReactWithComment(reactionRequest, comment_id, user.getId(), EReaction.DISLIKE);
+        return reactionService.ReactWithComment(comment_id, user, EReaction.DISLIKE);
     }
 }

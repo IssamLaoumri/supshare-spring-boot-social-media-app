@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Repository
 public interface ReactionRepository extends Neo4jRepository<Reaction, UUID> {
-    Optional<Reaction> findByProfileandComment(Profile profile, Comment comment);
+    Optional<Reaction> findByProfileAndComment(Profile profile, Comment comment);
     Optional<Reaction> findByProfileAndPost(Profile profile, Post post);
     List<Reaction> findByComment(Comment comment);
     List<Reaction> findByPost(Post post);

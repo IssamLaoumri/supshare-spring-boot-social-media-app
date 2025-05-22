@@ -24,9 +24,8 @@ public class ReactionServiceImpl implements ReactionService {
     private final CommentRepository commentRepository;
 
     @Override
-    public ReactionResponse ReactWithPost(ReactionRequest reactionRequest, UUID postid, UUID userid, EReaction reaction) {
-        User user = userRepository.findById(userid).get();
-        Profile profile = profileRepository.findByUsername(user.getUsername()).get();
+    public ReactionResponse ReactWithPost( UUID postid, User user, EReaction reaction) {
+        Profile profile = profileRepository.findById(user.getProfile().getProfile()).get();
         Optional<Reaction> react = reactionRepository.findByProfileAndPost(profile, postRepository.findById(postid).get());
         if(react.isPresent()) {
             reactionRepository.deleteById(react.get().getReactionId());
@@ -42,10 +41,9 @@ public class ReactionServiceImpl implements ReactionService {
     }
 
     @Override
-    public ReactionResponse ReactWithComment(ReactionRequest reactionRequest, UUID commentId, UUID userid, EReaction reaction) {
-        User user = userRepository.findById(userid).get();
-        Profile profile = profileRepository.findByUsername(user.getUsername()).get();
-        Optional<Reaction> react = reactionRepository.findByProfileandComment(profile, commentRepository.findById(commentId).get());
+    public ReactionResponse ReactWithComment(UUID commentId, User user, EReaction reaction) {
+        Profile profile = profileRepository.findById(user.getProfile().getProfile()).get();
+        Optional<Reaction> react = reactionRepository.findByProfileAndComment(profile, commentRepository.findById(commentId).get());
         if(react.isPresent()) {
             reactionRepository.deleteById(react.get().getReactionId());
             return new ReactionResponse("you unliked this post",profile.getFirstname()+" "+profile.getLastname());

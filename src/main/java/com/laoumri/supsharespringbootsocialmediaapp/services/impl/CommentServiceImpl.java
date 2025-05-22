@@ -51,14 +51,13 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentResponse createComment(CommentRequest commentRequest, User user, UUID post_id) {
-
         Post post = postRepository.findById(post_id).orElseThrow(() -> new RuntimeException("post not found"));
         Comment comment = commentMapper.toComment(commentRequest, user, post);
         post.getComments().add(comment);
         postRepository.save(post);
         return commentMapper.toPostResponse(comment);
     }
-
+    // stackoverflow error
     @Override
     public CommentResponse updateComment(UUID post_id, UUID comment_id,CommentRequest commentRequest) {
         Comment comment = commentRepository.findById(comment_id).orElseThrow(()->new RuntimeException("Comment not found"));

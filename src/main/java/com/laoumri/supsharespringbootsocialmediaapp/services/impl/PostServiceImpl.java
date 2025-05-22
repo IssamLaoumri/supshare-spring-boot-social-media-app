@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponse createPost(PostRequest postRequest, User user) {
-        var prf = profileRepository.findByUsername(user.getUsername())
+        var prf = profileRepository.findById(user.getProfile().getProfile())
                 .orElseThrow(()->new RuntimeException("Profile not found"));
         Post post = postMapper.PostRequestToPost(postRequest, prf);
         return postMapper.PostToPostResponse(postRepository.save(post));

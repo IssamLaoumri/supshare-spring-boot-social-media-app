@@ -38,7 +38,7 @@ public class CommentMapper {
     }
 
     public Comment toComment(CommentRequest commentRequest, User user, Post post) {
-        Profile profile = profileRepository.findByUsername(user.getUsername()).get();
+        Profile profile = profileRepository.findById(user.getProfile().getProfile()).get();
         return Comment.builder()
                 .content(commentRequest.getComment())
                 .media(commentRequest.getMedia())

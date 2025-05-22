@@ -1,5 +1,6 @@
 package com.laoumri.supsharespringbootsocialmediaapp.controllers;
 
+import com.laoumri.supsharespringbootsocialmediaapp.commons.constants.APIConstants;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.PostRequest;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.responses.PostResponse;
 import com.laoumri.supsharespringbootsocialmediaapp.entities.Post;
@@ -39,6 +40,7 @@ public class PostController {
         if(user.getId() == null){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
+        System.out.println("user :"+user );
         var post = postService.createPost(postRequest,user);
         if(post == null){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
