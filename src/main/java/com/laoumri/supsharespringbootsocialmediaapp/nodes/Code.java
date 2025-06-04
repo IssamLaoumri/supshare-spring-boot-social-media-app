@@ -2,6 +2,7 @@ package com.laoumri.supsharespringbootsocialmediaapp.nodes;
 
 import com.laoumri.supsharespringbootsocialmediaapp.enums.ECode;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Code {
     @Id @GeneratedValue
     private UUID id;

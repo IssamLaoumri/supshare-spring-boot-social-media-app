@@ -1,6 +1,6 @@
 package com.laoumri.supsharespringbootsocialmediaapp.security.services.impl;
 
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.UserRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

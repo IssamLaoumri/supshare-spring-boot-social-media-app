@@ -1,4 +1,4 @@
-package com.laoumri.supsharespringbootsocialmediaapp.repositories;
+package com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j;
 
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.Role;
 import com.laoumri.supsharespringbootsocialmediaapp.security.enums.ERole;

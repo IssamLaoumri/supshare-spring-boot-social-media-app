@@ -7,4 +7,5 @@ import com.laoumri.supsharespringbootsocialmediaapp.nodes.User;
 public interface AuthService {
     User register(RegisterRequest registerRequest);
     User login(LoginRequest loginRequest);
+    void verifyEmail(String email);
 }

@@ -1,7 +1,9 @@
 package com.laoumri.supsharespringbootsocialmediaapp.security.utils;
 
+import com.laoumri.supsharespringbootsocialmediaapp.documents.ChatMessage;
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.Role;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.RoleRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.mongo.ChatRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j.RoleRepository;
 import com.laoumri.supsharespringbootsocialmediaapp.security.enums.ERole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class RoleInitializer implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
+    private final ChatRepository chatRepository;
 
     @Override
     public void run(String... args) {

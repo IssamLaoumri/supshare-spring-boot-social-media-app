@@ -1,4 +1,4 @@
-package com.laoumri.supsharespringbootsocialmediaapp.repositories;
+package com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j;
 
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.User;
 import org.springframework.data.neo4j.repository.Neo4jRepository;

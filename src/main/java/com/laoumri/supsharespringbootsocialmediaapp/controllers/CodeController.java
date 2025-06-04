@@ -3,6 +3,7 @@ package com.laoumri.supsharespringbootsocialmediaapp.controllers;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.reset.SendCodeRequest;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.reset.VerifyCodeRequest;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.responses.MessageResponse;
+import com.laoumri.supsharespringbootsocialmediaapp.enums.ECode;
 import com.laoumri.supsharespringbootsocialmediaapp.enums.code.ECodeVerif;
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.Code;
 import com.laoumri.supsharespringbootsocialmediaapp.security.enums.ECookie;
@@ -34,7 +35,7 @@ public class CodeController {
 
     @PostMapping("/sendCode")
     public ResponseEntity<MessageResponse> sendResetPasswordEmail(@Valid @RequestBody SendCodeRequest request) {
-        Code code = codeService.save(request.getEmail());
+        Code code = codeService.save(request.getEmail(), ECode.RESET_PASSWORD);
 
         String token;
         ResponseCookie cookie = null;

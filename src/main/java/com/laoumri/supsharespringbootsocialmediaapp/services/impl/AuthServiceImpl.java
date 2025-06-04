@@ -7,9 +7,10 @@ import com.laoumri.supsharespringbootsocialmediaapp.nodes.Role;
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.User;
 import com.laoumri.supsharespringbootsocialmediaapp.enums.code.ERoleCode;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.NotFoundException;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.RoleRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j.RoleRepository;
 import com.laoumri.supsharespringbootsocialmediaapp.security.enums.ERole;
 import com.laoumri.supsharespringbootsocialmediaapp.services.AuthService;
+import com.laoumri.supsharespringbootsocialmediaapp.services.EmailService;
 import com.laoumri.supsharespringbootsocialmediaapp.services.ProfileService;
 import com.laoumri.supsharespringbootsocialmediaapp.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class AuthServiceImpl implements AuthService {
     private final ProfileService profileService;
     private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     @Override
     public User register(RegisterRequest registerRequest) {
@@ -36,12 +38,12 @@ public class AuthServiceImpl implements AuthService {
 
         if (registerRequest.getRoles() == null) {
             Role defaultRole = roleRepository.findByRoleName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new NotFoundException(ERoleCode.ROLE_NOT_FOUND, ERole.ROLE_USER.name() + " role name not found"));
+                    .orElseThrow(() -> new NotFoundException(ERoleCode.ROLE_NOT_FOUND, ERole.ROLE_USER.name() + " not found"));
             roles.add(defaultRole);
         } else {
             registerRequest.getRoles().forEach(role -> {
                 Role roleEntity = roleRepository.findByRoleName(ERole.valueOf(role))
-                        .orElseThrow(() -> new NotFoundException(ERoleCode.ROLE_NOT_FOUND, ERole.ROLE_USER.name() + " role name not found"));
+                        .orElseThrow(() -> new NotFoundException(ERoleCode.ROLE_NOT_FOUND, role + " not found"));
                 roles.add(roleEntity);
             });
         }
@@ -56,5 +58,10 @@ public class AuthServiceImpl implements AuthService {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return userService.findUserByEmail(loginRequest.getEmail());
+    }
+
+    @Override
+    public void verifyEmail(String email) {
+
     }
 }

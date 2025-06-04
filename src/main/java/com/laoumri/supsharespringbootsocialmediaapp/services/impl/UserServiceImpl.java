@@ -9,7 +9,7 @@ import com.laoumri.supsharespringbootsocialmediaapp.nodes.User;
 import com.laoumri.supsharespringbootsocialmediaapp.enums.code.EUserCode;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.BadRequestException;
 import com.laoumri.supsharespringbootsocialmediaapp.exceptions.global.NotFoundException;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.UserRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j.UserRepository;
 import com.laoumri.supsharespringbootsocialmediaapp.services.PasswordService;
 import com.laoumri.supsharespringbootsocialmediaapp.services.UserService;
 import lombok.RequiredArgsConstructor;

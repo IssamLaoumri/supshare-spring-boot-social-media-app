@@ -2,7 +2,7 @@ package com.laoumri.supsharespringbootsocialmediaapp.security.services.impl;
 
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.RefreshToken;
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.User;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.RefreshTokenRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j.RefreshTokenRepository;
 import com.laoumri.supsharespringbootsocialmediaapp.security.services.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

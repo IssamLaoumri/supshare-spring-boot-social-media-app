@@ -1,4 +1,4 @@
-package com.laoumri.supsharespringbootsocialmediaapp.repositories;
+package com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j;
 
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.PasswordHistory;
 import org.springframework.data.neo4j.repository.Neo4jRepository;

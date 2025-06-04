@@ -3,7 +3,7 @@ package com.laoumri.supsharespringbootsocialmediaapp.services.impl;
 import com.laoumri.supsharespringbootsocialmediaapp.dto.requests.login.RegisterRequest;
 import com.laoumri.supsharespringbootsocialmediaapp.nodes.Profile;
 import com.laoumri.supsharespringbootsocialmediaapp.enums.EGender;
-import com.laoumri.supsharespringbootsocialmediaapp.repositories.ProfileRepository;
+import com.laoumri.supsharespringbootsocialmediaapp.repositories.neo4j.ProfileRepository;
 import com.laoumri.supsharespringbootsocialmediaapp.services.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
